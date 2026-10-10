@@ -1,0 +1,6 @@
+Flask
+Werkzeug
+matplotlib
+pandas
+gunicorn
+psycopg[binary]

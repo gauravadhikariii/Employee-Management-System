@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block public_content %}
+<div class="login-page">
+  <div class="login-art"><div class="login-art-content"><a class="brand brand-white" href="#"><span class="brand-icon">EH</span><span>Employee<span class="brand-light">Hub</span></span></a><div class="art-copy"><span class="eyebrow">PEOPLE FIRST. ALWAYS.</span><h1>Great teams<br>start with <em>great tools.</em></h1><p>A smarter, simpler way to manage your people, understand your workforce and help your team thrive.</p></div><div class="art-stat"><div class="stat-orbit">✦</div><div><strong>People. Process. Progress.</strong><small>Your workforce at a glance.</small></div></div></div></div>
+  <div class="login-form-side"><div class="login-form-wrap"><div class="mobile-brand brand"><span class="brand-icon">EH</span><span>Employee<span class="brand-light">Hub</span></span></div><span class="eyebrow">WELCOME BACK</span><h2>Sign in to your workspace</h2><p class="muted">Enter your details to access your dashboard.</p>
+  <form method="post" class="form-stack"><label>Username<input name="username" placeholder="Enter username" required autocomplete="username" value="admin"></label><label>Password<div class="password-wrap"><input id="loginPassword" name="password" type="password" placeholder="Enter password" required autocomplete="current-password"><button type="button" class="password-toggle" data-toggle-password="loginPassword">Show</button></div></label><button class="btn btn-primary btn-full" type="submit">Sign in <span>→</span></button></form>
+  <div class="demo-credentials"><strong>Demo login</strong><span>Username: <code>admin</code></span><span>Password: <code>Admin@123</code></span><small>Change the demo password after your first login.</small></div><p class="login-foot">Built for better employee experiences.</p></div></div>
+</div>
+{% endblock %}

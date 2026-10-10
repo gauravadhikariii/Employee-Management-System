@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Edit employee{% endblock %}
+{% block page_name %}Edit employee{% endblock %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">EMPLOYEE DIRECTORY</span><h1>Edit employee</h1><p class="muted">Update employee information below.</p></div><a class="btn btn-secondary" href="{{ url_for('employees') }}">← Back to employees</a></div>
+<div class="panel form-panel"><form method="post" class="employee-form">
+<div class="form-section-title"><span class="section-number">01</span><div><h3>Personal information</h3><p class="muted">Basic employee details</p></div></div>
+<div class="form-grid">
+<label>Employee ID *<input name="employee_code" required placeholder="e.g. EMP-001" value="{{ employee.employee_code or '' }}"></label>
+<label>Full name *<input name="full_name" required placeholder="e.g. Aditi Sharma" value="{{ employee.full_name or '' }}"></label>
+<label>Email address *<input type="email" name="email" required placeholder="name@company.com" value="{{ employee.email or '' }}"></label>
+<label>Phone number<input name="phone" placeholder="Phone number" value="{{ employee.phone or '' }}"></label>
+</div>
+<div class="form-section-title section-spaced"><span class="section-number">02</span><div><h3>Role & employment</h3><p class="muted">Department, position and employment status</p></div></div>
+<div class="form-grid">
+<label>Department *<select name="department" required><option value="">Select department</option>{% for d in departments %}<option value="{{ d }}" {% if employee.department == d %}selected{% endif %}>{{ d }}</option>{% endfor %}</select></label>
+<label>Job title / position *<input name="position" required placeholder="e.g. Software Engineer" value="{{ employee.position or '' }}"></label>
+<label>Monthly salary (₹) *<input type="number" name="salary" min="0" step="0.01" required placeholder="e.g. 45000" value="{{ employee.salary if employee.salary is defined else '' }}"></label>
+<label>Joining date *<input type="date" name="joining_date" required value="{{ employee.joining_date or '' }}"></label>
+<label>Employment status *<select name="status" required><option value="Active" {% if employee.status == 'Active' or not employee.status %}selected{% endif %}>Active</option><option value="On Leave" {% if employee.status == 'On Leave' %}selected{% endif %}>On Leave</option><option value="Inactive" {% if employee.status == 'Inactive' %}selected{% endif %}>Inactive</option></select></label>
+</div>
+<div class="form-actions"><a class="btn btn-secondary" href="{{ url_for('employees') }}">Cancel</a><button class="btn btn-primary" type="submit">Save changes →</button></div>
+</form></div>
+{% endblock %}

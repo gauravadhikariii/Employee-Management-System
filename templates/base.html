@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-theme="{{ current_user.theme if current_user else 'light' }}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Employee Hub{% endblock %} | Employee Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+{% if current_user %}
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon">EH</span><span>Employee<span class="brand-light">Hub</span></span></a>
+    <div class="side-label">WORKSPACE</div>
+    <nav class="nav">
+      <a href="{{ url_for('dashboard') }}" class="{% if request.endpoint == 'dashboard' %}active{% endif %}"><span>▦</span> Dashboard <kbd>Alt+D</kbd></a>
+      <a href="{{ url_for('employees') }}" class="{% if request.endpoint in ['employees','add_employee','edit_employee'] %}active{% endif %}"><span>♙</span> Employees</a>
+      <a href="{{ url_for('reports') }}" class="{% if request.endpoint == 'reports' %}active{% endif %}"><span>▥</span> Visual Reports</a>
+    </nav>
+    <div class="side-label">PREFERENCES</div>
+    <nav class="nav">
+      <a href="{{ url_for('profile') }}" class="{% if request.endpoint == 'profile' %}active{% endif %}"><span>◎</span> My Profile</a>
+      <a href="{{ url_for('settings') }}" class="{% if request.endpoint == 'settings' %}active{% endif %}"><span>⚙</span> Settings</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="mini-avatar">{{ current_user.full_name[:1]|upper }}</div><div class="user-mini"><strong>{{ current_user.full_name }}</strong><small>Administrator</small></div><a class="logout-icon" href="{{ url_for('logout') }}" title="Logout">↪</a></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar">
+      <button class="icon-button mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+      <div class="breadcrumb">Workspace <span>/</span> <strong>{% block page_name %}Dashboard{% endblock %}</strong></div>
+      <div class="top-actions"><button class="search-shortcut" id="globalSearchButton">⌕ <span>Quick search</span> <kbd>Ctrl K</kbd></button><button class="theme-button" id="themeToggle" title="Toggle theme">☼</button><a class="profile-chip" href="{{ url_for('profile') }}"><span class="mini-avatar">{{ current_user.full_name[:1]|upper }}</span><span>{{ current_user.full_name }}</span></a></div>
+    </header>
+    <section class="page-content">
+      {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}<button onclick="this.parentElement.remove()">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+    </section>
+    <footer class="footer">EmployeeHub <span>•</span> Employee Management System <span>•</span> Q08: Improve User Satisfaction</footer>
+  </main>
+</div>
+<div class="search-overlay" id="searchOverlay"><div class="search-dialog"><div class="search-input-row"><span>⌕</span><input id="overlaySearch" placeholder="Search employees..." autofocus><kbd>ESC</kbd></div><p>Search by name, employee ID, email or position.</p><div class="search-hint">Press Enter to view matching employees</div></div></div>
+{% else %}
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="login-flashes">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block public_content %}{% endblock %}
+{% endif %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body></html>

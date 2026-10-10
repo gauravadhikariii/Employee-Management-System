@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}My Profile{% endblock %}{% block page_name %}My Profile{% endblock %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">YOUR ACCOUNT</span><h1>My profile</h1><p class="muted">Manage your account details and security.</p></div></div>
+<div class="content-grid profile-grid"><div class="panel form-panel"><div class="profile-hero"><div class="profile-avatar">{{ user.full_name[:1]|upper }}</div><div><h2>{{ user.full_name }}</h2><p class="muted">@{{ user.username }} · Administrator</p></div></div><form method="post" class="form-stack"><label>Full name<input name="full_name" required value="{{ user.full_name }}"></label><label>Email address<input type="email" name="email" required value="{{ user.email }}"></label><button class="btn btn-primary" type="submit">Save profile changes</button></form></div>
+<div class="panel form-panel"><div class="panel-heading"><div><h3>Change password</h3><p class="muted">Use at least 8 characters for your new password.</p></div></div><form method="post" action="{{ url_for('change_password') }}" class="form-stack"><label>Current password<input type="password" name="old_password" required autocomplete="current-password"></label><label>New password<input type="password" name="new_password" minlength="8" required autocomplete="new-password"></label><button class="btn btn-secondary" type="submit">Update password</button></form></div></div>
+{% endblock %}
